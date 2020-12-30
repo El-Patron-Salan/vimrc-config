@@ -7,6 +7,16 @@ let g:clang_library_path='/usr/lib/llvm-10/lib'
 let g:clang_library_path='/usr/lib/llvm-10/lib/libclang-10.so.1'
 let g:clang_complete = 1 "automatically selects the first entry in the pop up menu
 let g:clang_snippets = 1 "do some snippets magic on code placeholders like function argument, template parameters, etc
+" if there is any error
+let g:clang_complete_copen=1
+let g:clang_hl_errors=1
+let g:clang_use_library=1
+let g:clang_complete_macros=1
+let g:clang_complete_patterns=0
+" Limit memory use
+let g:clang_memory_percent=70
+let g:clang_auto_select=1
+
 
 " Allowing to copy to other programs
 set clipboard=unnamedplus
@@ -106,3 +116,4 @@ inoremap [  []<ESC>hli
 inoremap (  ()<ESC>hli
 inoremap "  ""<ESC>hli
 inoremap '  ''<ESC>hli
+
