@@ -20,6 +20,16 @@ let g:clang_auto_select=1
 " Use visual bell instead of beeping when doing something wrong
 set visualbell
 
+" Redraw screen only when needed
+set lazyredraw
+
+" Move vertically by visual line
+nmap j gj
+nmap k gk
+
+" Temporary switch to paste mode
+set pastetoggle=<F2>
+
 " Stop always going to first char in line
 set nostartofline
 
