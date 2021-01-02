@@ -17,6 +17,11 @@ let g:clang_complete_patterns=0
 let g:clang_memory_percent=70
 let g:clang_auto_select=1
 
+" Use visual bell instead of beeping when doing something wrong
+set visualbell
+
+" Stop always going to first char in line
+set nostartofline
 
 " Allowing to copy to other programs
 set clipboard=unnamedplus
