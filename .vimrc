@@ -5,8 +5,10 @@ let g:deoplete#enable_at_startup = 1
 let g:clang_library_path='/usr/lib/llvm-10/lib'
 " or path directly to the library file
 let g:clang_library_path='/usr/lib/llvm-10/lib/libclang-10.so.1'
-let g:clang_complete = 1 "automatically selects the first entry in the pop up menu
-let g:clang_snippets = 1 "do some snippets magic on code placeholders like function argument, template parameters, etc
+" automatically selects the first entry in the pop up menu
+let g:clang_complete = 1 
+" do some snippets magic on code placeholders like function argument, template parameters, etc
+let g:clang_snippets = 1
 " if there is any error
 let g:clang_complete_copen=1
 let g:clang_hl_errors=1
