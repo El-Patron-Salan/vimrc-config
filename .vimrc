@@ -17,6 +17,8 @@ Plugin 'Shougo/deoplete.nvim'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'  " shows changed git files
 
+
+
 call vundle#end()            
 filetype plugin indent on
 
@@ -38,6 +40,9 @@ let g:clang_complete_patterns=0
 " Limit memory use
 let g:clang_memory_percent=70
 let g:clang_auto_select=1
+
+" Start NERDTree and put the cursor back in the other window.
+autocmd VimEnter * NERDTree | wincmd p
 
 " Use visual bell instead of beeping when doing something wrong
 set visualbell
