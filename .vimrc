@@ -8,10 +8,7 @@ call vundle#begin()
 " let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
 
-" deoplete plugins to autocomplete
-Plugin 'roxma/vim-hug-neovim-rpc'
-Plugin 'roxma/nvim-yarp'
-Plugin 'Shougo/deoplete.nvim'
+Plugin 'neoclide/coc.nvim'
 
 " nerdtree plugin
 Plugin 'preservim/nerdtree'
@@ -21,7 +18,6 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'  " shows changed git files
 
 call vundle#end()            
 filetype plugin indent on
-
 
 " path to directory where library can be found
 let g:clang_library_path='/usr/lib/llvm-10/lib'
