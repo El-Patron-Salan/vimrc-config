@@ -8,6 +8,7 @@ call vundle#begin()
 " let Vundle manage Vundle
 Plugin 'VundleVim/Vundle.vim'
 
+" autocomplete for clang 
 Plugin 'neoclide/coc.nvim'
 
 " nerdtree plugin
