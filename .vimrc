@@ -38,8 +38,24 @@ let g:clang_complete_patterns=0
 let g:clang_memory_percent=70
 let g:clang_auto_select=1
 
-" Start NERDTree and put the cursor back in the other window.
+" NerdTree options -----------------------------------------
+let NERDTreeMinimalUI  = 1
+let NERDTreeShowHidden = 1
+let g:NERDTreeWinSize = 36
 autocmd VimEnter * NERDTree | wincmd p
+autocmd BufWinEnter * NERDTreeMirror
+autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+
+" CoC options ----------------------------------------------
+set hidden
+set shortmess+=c
+" Highlight the symbol and its references when holding the cursor
+autocmd CursorHold * silent call CocActionAsync('highlight')
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+
+
+
 
 " Use visual bell instead of beeping when doing something wrong
 set visualbell
@@ -120,7 +136,10 @@ set ruler
 set foldcolumn=1
 
 " Height of the command bar
-set cmdheight=1
+set cmdheight=2
+
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience
+set updatetime=300
 
 " A buffer becomes hidden when it is abandoned
 set hid
