@@ -15,7 +15,18 @@ Plugin 'neoclide/coc.nvim'
 Plugin 'preservim/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'  " shows changed git files
 
+" every bracket ha it's own color
+Plugin 'frazrepo/vim-rainbow'
 
+" status bar
+Plugin 'itchyny/lightline.vim'
+
+" git options
+Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-fugitive'
+
+" punk colorscheme
+Plugin 'bignimbus/pop-punk.vim'
 
 call vundle#end()            
 filetype plugin indent on
@@ -38,7 +49,7 @@ let g:clang_auto_select=1
 let NERDTreeMinimalUI  = 1
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 36
-autocmd VimEnter * NERDTree | wincmd p
+autocmd VimEnter * NERDTree
 autocmd BufWinEnter * NERDTreeMirror
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
@@ -129,7 +140,23 @@ nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
 nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
 
 
+" Rainbow Parentheses --------------------------------------------
+let g:rainbow_active = 1
 
+" Highlight line number
+hi clear CursorLine
+augroup CLClear
+    autocmd! ColorScheme * hi clear CursorLine
+augroup END
+
+hi CursorLineNR cterm=bold
+augroup CLNRSet
+    autocmd! ColorScheme * hi CursorLineNR cterm=bold
+augroup END
+
+
+highlight CursorLine cterm=NONE ctermbg=NONE ctermfg=NONE guibg=NONE guifg=NONE
+set cursorline
 
 
 " General options ------------------------------------------------
@@ -161,8 +188,17 @@ set ignorecase
 " When searching try to be smart about cases 
 set smartcase
 
-colorscheme molokai
-set background=dark
+colorscheme pop-punk
+" pop-punk ANSI colors for vim terminal
+let g:terminal_ansi_colors = pop_punk#AnsiColors()
+
+" for lightline theme - this needs underscore too
+""t g:lightline.colorscheme = 'pop_punk'
+let g:lightline = {
+      \ 'colorscheme': 'pop_punk',
+      \ }
+
+"set background=dark
 "let g:molokai_original = 1
 "let g:rehash256 = 1
 
@@ -183,9 +219,10 @@ set number
 
 " always display the status bar
 set laststatus=2
-
+set noshowmode
+""set t_Co=256 
 " Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
 
 " enable mouse for scrolling and resizing
 set mouse=a
