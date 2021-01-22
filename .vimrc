@@ -49,7 +49,14 @@ let g:clang_auto_select=1
 let NERDTreeMinimalUI  = 1
 let NERDTreeShowHidden = 1
 let g:NERDTreeWinSize = 36
-autocmd VimEnter * NERDTree
+" Open file directly to window not NerdTree with lightline on
+augroup NERD
+     au!
+     autocmd VimEnter * NERDTree
+     autocmd VimEnter * wincmd p
+     autocmd VimEnter * call lightline#update()
+augroup END
+
 autocmd BufWinEnter * NERDTreeMirror
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
