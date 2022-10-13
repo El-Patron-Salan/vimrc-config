@@ -2,13 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/home/alan/.oh-my-zsh"
-
+export ZSH="/home/salan/.oh-my-zsh"
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+ZSH_THEME="candy"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -70,7 +69,7 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git gpg-agent)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -99,13 +98,8 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
-#My custom aliases
- alias cdjav='cd /home/alan/Desktop/.Java_Examples/out/production/Java_Examples'
- alias cdToRepos='cd /mnt/For_linux_use/GitHubRepo'
- alias gup='sudo apt-get update'
- alias gug='sudo apt-get upgrade'
- alias shh='shutdown -h now'
- alias conOVPN='cd /home/alan/Desktop/.Stuff && sudo openvpn 0x53616c616e.ovpn'
- alias conBlt='cd /home/alan/Desktop/.bashScripts/upstart && bash bltConnect.sh'
-# Copy the PWD to the Clipboard
- alias cpwd="pwd | tr -d '\n' | xclip -selection clipboard && echo 'pwd copied to clipboard'"
+# custom aliases
+alias s.shh='shutdown -h now'
+alias c.shf='ps -ax | grep -m1 "/usr/lib/firefox/firefox"'
+alias c.cpwd="pwd | tr -d '\n' | xclip -selection clipboard"
+alias c.wifi="nmcli device wifi"

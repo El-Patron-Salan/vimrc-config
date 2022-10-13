@@ -1,0 +1,33 @@
+[global_config]
+  borderless = True
+  scroll_tabbar = True
+  title_hide_sizetext = True
+  title_transmit_fg_color = "#e01b24"
+  title_transmit_bg_color = "#000000"
+  title_inactive_bg_color = "#330909"
+  enabled_plugins = ActivityWatch, LaunchpadBugURLHandler, LaunchpadCodeURLHandler, APTURLHandler
+  title_use_system_font = False
+  title_font = Hack 11
+[keybindings]
+[profiles]
+  [[default]]
+    allow_bold = False
+    background_darkness = 0.9
+    cursor_color = "#aaaaaa"
+    font = Hack 10
+    foreground_color = "#05a816"
+    scrollbar_position = hidden
+    scrollback_lines = 5000
+    scrollback_infinite = True
+    palette = "#000000:#cd0000:#14bd97:#cdcd00:#168eff:#cd00cd:#00cdcd:#b22af2:#7f7f7f:#ff0000:#00ff00:#ffff00:#5c5cff:#ff00ff:#00ffff:#ffffff"
+    use_system_font = False
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]
