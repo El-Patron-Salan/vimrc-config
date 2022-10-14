@@ -8,12 +8,15 @@ NC='\033[0m'
 
 
 USERNAME="salan"
+HOMEDIR=/home/salan
+CONFIGDIR=$HOMEDIR/git/configs
+REPODIR=$CONFIGDIR/vimrc-config-master
 
 DISTRO_LIST=("arch" "manjaro" "debian" "raspbian" "ubuntu" "lubuntu" "xubuntu" "kubuntu" "gentoo" "redcore" "rhel" "centos" "fedora" "opensuse" "suse")
 DISTRO=$(grep "^ID=.*$" /etc/os-release | sed 's/^[^=]*=//')
 
 BASIC_PACKAGES="vim nano git htop sudo make tmux terminator zsh curl wget unzip openssh"
-ADVANCED_PACKAGES="tcpdump nmap openbsd-netcat net-tools ufw"
+ADVANCED_PACKAGES="tcpdump nmap netcat net-tools ufw"
 
 # check if user is root - has PID 0
 if [[ $EUID -ne 0 ]]; then
@@ -65,7 +68,7 @@ if $pkg_mngr $update_cmd 2> /dev/shm/update.log 1>/dev/null; then
     echo -e "${CYAN}INFO: finished installing packages${NC}"
     echo -e "${CYAN}INFO: please verify if all of them are installed (you can find them somewhere in the /var/cache/$pkg_mngr/)${NC}"
 else
-    echo -e "${RED}ERROR: couldn't update packages, because of:${NC}\n" && cat /dev/shm/update.log
+    echo -e "${RED}ERROR: couldn't update packages:${NC}\n" && cat /dev/shm/update.log
     exit 1;
 fi
 
@@ -73,7 +76,6 @@ fi
 useradd --create-home --shell /usr/bin/zsh  --uid 2137 $USERNAME &>/dev/null
 if [[ $? -eq 0 ]]; then 
     echo -e "${CYAN}INFO: user ${USERNAME} added successfully${NC}"
-    chage -d 0 $USERNAME
     echo "${USERNAME}  ALL=(ALL:ALL) ALL" >> /etc/sudoers
     if [[ $? -eq 0 ]]; then
         echo -e "${CYAN}INFO: user added to sudoers${NC}"
@@ -85,23 +87,27 @@ else
     exit 1;
 fi
 
+#clone vim package manager -- Vundle
+git clone https://github.com/VundleVim/Vundle.vim.git $HOMEDIR/.vim/bundle/Vundle.vim &>/dev/null
+
 # download configuration files from GitHub and copy stuff
-wget --directory-prefix=/home/salan/ https://github.com/El-Patron-Salan/vimrc-config/archive/refs/heads/master.zip
-mkdir /home/salan/git/configs && unzip /home/salan/master.zip -d /home/salan/git/configs/ &> /dev/null
-\cp /home/salan/git/configs/.zshrc /home/salan/
-\cp /home/salan/git/configs/.vimrc /home/salan/
-rm /home/salan/master.zip
+wget --directory-prefix=$HOMEDIR https://github.com/El-Patron-Salan/vimrc-config/archive/refs/heads/master.zip &>/dev/null
+mkdir -p $CONFIGDIR && unzip $HOMEDIR/master.zip -d $CONFIGDIR &> /dev/null
+\cp $REPODIR/.vimrc /home/salan/
+rm $HOMEDIR/master.zip
 
 # install oh-my-zsh
-su - salan -c 'sh -c "$(wget https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"' ; [[ $(echo $USERNAME) == "salan" ]] && exit;
-\cp /home/salan/git/configs/candy.zsh-theme /home/salan/.oh-my-zsh/themes/
+su - salan -c 'sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended' &>/dev/null
+echo -e "${CYAN}INFO: Installed oh-my-zsh${NC}"
+\cp $REPODIR/candy.zsh-theme $HOMEDIR/.oh-my-zsh/themes/
+\cp $REPODIR/.zshrc /home/salan/
 
 # should be advanced packages installed?
 read -p "Proceed with installation advanced packages? [Y/n] " opt
 case $opt in
-    y*|Y*|"") $pkg_mngr $install_cmd $ADVANCED_PACKAGES &>/dev/null ;;
-    n*|N*) echo ""; return ;;
-    *) echo "Invalid option. Skipping..."; return ;;
+    y*|Y*|"") $pkg_mngr $install_cmd $ADVANCED_PACKAGES ;;
+    n*|N*) echo "" ;;
+    *) echo -e "${YELLOW}WARN: Invalid option. Skipping...${NC}" ;;
 esac
 
-echo -e "${CYAN}Setting environment complete :)"
+echo -e "${CYAN}INFO: Setting environment complete :)${NC}"
