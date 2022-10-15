@@ -16,7 +16,7 @@ DISTRO_LIST=("arch" "manjaro" "debian" "raspbian" "ubuntu" "lubuntu" "xubuntu" "
 DISTRO=$(grep "^ID=.*$" /etc/os-release | sed 's/^[^=]*=//')
 
 BASIC_PACKAGES="vim nano git htop sudo make tmux terminator zsh curl wget unzip openssh"
-ADVANCED_PACKAGES="tcpdump nmap netcat net-tools ufw"
+ADVANCED_PACKAGES="tcpdump nmap netcat net-tools ufw g++"
 
 # check if user is root - has PID 0
 if [[ $EUID -ne 0 ]]; then
@@ -103,9 +103,9 @@ echo -e "${CYAN}INFO: Installed oh-my-zsh${NC}"
 \cp $REPODIR/.zshrc /home/salan/
 
 # should be advanced packages installed?
-read -p "Proceed with installation advanced packages? [Y/n] " opt
+read -p "Proceed with advanced packages installation? [Y/n] " opt
 case $opt in
-    y*|Y*|"") $pkg_mngr $install_cmd $ADVANCED_PACKAGES ;;
+    y*|Y*|"") $pkg_mngr $install_cmd $ADVANCED_PACKAGES &>/dev/null ;;
     n*|N*) echo "" ;;
     *) echo -e "${YELLOW}WARN: Invalid option. Skipping...${NC}" ;;
 esac
